@@ -2,6 +2,7 @@
 import { api, notify } from '/shared/api.js';
 import { mountCharacter } from '/shared/character/character.js';
 import { bestMatch } from '/shared/character/commands.js';
+import { initToday } from './today.js';
 import { crumbsOf, formatSize, formatWhen, isSwipeRight, parentOf, remember, splitArgs } from './lib/nav.js';
 
 const $ = (id) => document.getElementById(id);
@@ -217,6 +218,15 @@ function toast(text) {
 
 // ---------------- the character ----------------
 async function handle(cmd) {
+  if (cmd.intent === 'unknown') {
+    const t = cmd.text.toLowerCase();
+    const pick = /\b(game|play|guess)\b/.test(t) ? 'game' : /\b(reward|stats|statistics|promote|check.?in)\b/.test(t) ? 'rewards'
+      : /\b(to.?action|claude list)\b/.test(t) ? 'claude' : /\b(today|hotspots?|progress|what was i working on)\b/.test(t) ? 'work' : null;
+    if (pick) {
+      today.open(pick);
+      return { game: "Here's the word game. Pick a file.", rewards: 'Your rewards.', claude: 'The Claude to-action list.', work: "Here's where you've been working." }[pick];
+    }
+  }
   switch (cmd.intent) {
     case 'up':
       if (!st.folder) return "You're already at the top.";
@@ -266,6 +276,17 @@ async function handle(cmd) {
   }
 }
 
+// ---------------- Today ----------------
+const today = initToday({
+  el,
+  openPath,
+  say: (t) => character?.say(t),
+  insideDesktop: INSIDE_DESKTOP,
+  getState: () => st,
+  saveState: save
+});
+$('todayBtn').addEventListener('click', () => today.open());
+
 // ---------------- start ----------------
 async function init() {
   const info = await api.info();
@@ -274,8 +295,11 @@ async function init() {
   renderChips();
   const start = new URLSearchParams(location.search).get('folder') ?? st.folder;
   if (!(await go(start, { quiet: true }))) await go('');
+  const which = new URLSearchParams(location.search).get('today');
+  if (which) today.open(['work', 'game', 'rewards', 'claude'].includes(which) ? which : 'work');
   character = await mountCharacter({
     handle,
+    here: () => st.folder,
     bottom: 150,
     greeting: 'Tell me where to go: go to a folder, go up, open a file, or run a script.'
   }).catch(() => null);

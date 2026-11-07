@@ -45,3 +45,52 @@ button.wide { width: 100%; }
   #filter { display: none; }
   .outpanel { bottom: 128px; }
 }
+
+/* Today panel */
+.today { position: fixed; inset: 0; z-index: 120; display: flex; flex-direction: column; background: var(--bg); }
+.todaytop { display: flex; align-items: center; gap: 10px; padding: 8px 12px; padding-top: max(8px, env(safe-area-inset-top)); background: var(--panel); border-bottom: 1px solid var(--line); }
+.todaytop strong { font-size: 20px; }
+.today .tabs { display: flex; gap: 6px; padding: 8px; overflow-x: auto; background: var(--panel); border-bottom: 1px solid var(--line); scrollbar-width: none; }
+.today .tabs button { min-height: 46px; white-space: nowrap; border-radius: 999px; font-size: 16px; }
+.today .tabs button.on { background: var(--accent); color: white; border-color: var(--accent); }
+.todaybody { flex: 1; overflow-y: auto; padding: 12px; padding-bottom: calc(110px + env(safe-area-inset-bottom)); display: grid; gap: 12px; align-content: start; max-width: 900px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.todaybody p { margin: 0; }
+.todaybody h3 { margin: 0 0 6px; font-size: 17px; }
+.banner { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--ok, #2a8a4a) 14%, var(--panel)); border: 1px solid color-mix(in srgb, var(--ok, #2a8a4a) 40%, var(--line)); font-weight: 600; }
+.banner button { min-height: 40px; }
+.spot, .reward { padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); display: grid; gap: 8px; }
+.spothead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.spothead strong { font-size: 18px; }
+.spotfiles { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+button.link { border: none; background: none; padding: 2px 0; min-height: 30px; color: var(--accent); font-family: var(--mono); font-size: 13px; text-align: left; overflow-wrap: anywhere; }
+.progressbtns { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); }
+.progressbtns button, .wflist button, .gamefiles button { min-height: 52px; font-size: 15px; border-radius: 12px; }
+.fivelines { display: grid; gap: 8px; }
+.fivelines input { min-height: 52px; font-size: 17px; }
+.wflist, .gamefiles { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.folders { display: flex; align-items: center; gap: 6px; }
+.folders input { flex: 1; min-height: 40px; }
+.gamehead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; position: sticky; top: -12px; background: var(--bg); padding: 6px 0; z-index: 1; }
+.gamehead .score { font-weight: 700; font-size: 18px; padding: 2px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.gamehead button, .gamefoot button { min-height: 44px; }
+.gameline { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+.gametext { flex: 1; font-size: 19px; line-height: 2.1; }
+.gap { font: inherit; font-size: 18px; padding: 2px 4px; min-height: 0; height: 34px; border: none; border-bottom: 2px solid var(--accent); border-radius: 4px 4px 0 0; background: color-mix(in srgb, var(--accent) 7%, transparent); text-align: center; }
+.gap.right { border-color: var(--ok, #2a8a4a); background: color-mix(in srgb, var(--ok, #2a8a4a) 16%, transparent); }
+.gap.close { border-color: #c98a00; background: color-mix(in srgb, #c98a00 18%, transparent); }
+.gap.wrong { border-color: var(--danger, #c0392b); }
+.gap.shown { border-color: var(--quiet); color: var(--quiet); }
+.gameline button.small { min-height: 40px; min-width: 40px; }
+.claudesaid { margin: 4px 0 0 12px; white-space: pre-wrap; font-size: 14px; padding: 8px; border-left: 3px solid var(--accent); background: var(--panel); }
+.gamefoot { flex-wrap: wrap; gap: 8px; }
+.statgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.statgrid div { display: grid; text-align: center; padding: 8px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.statgrid b { font-size: 26px; }
+.reward h3 input { width: 140px; min-height: 34px; }
+.reward select, .reward .row input { min-height: 46px; flex: 1; font-size: 16px; }
+.actions { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+.actions li { padding: 6px 0; border-bottom: 1px solid var(--line); }
+@media (max-width: 560px) {
+  .statgrid { grid-template-columns: repeat(2, 1fr); }
+  .todaytop #todaySummary { font-size: 13px; }
+}
