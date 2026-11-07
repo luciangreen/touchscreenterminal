@@ -1,0 +1,10 @@
+{
+  "name": "touchscreenterminal",
+  "version": "0.1.0",
+  "description": "Touchscreen terminal: move around folders by touch and talk to the LucianOS character",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "license": "BSD-3-Clause"
+}

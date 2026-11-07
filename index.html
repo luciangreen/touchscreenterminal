@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Touchscreen terminal</title>
+  <link rel="stylesheet" href="/shared/style.css">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="tt-top">
+    <button id="home" class="big" title="Home folder" aria-label="Home">⌂</button>
+    <button id="up" class="big" title="Up one folder" aria-label="Up one folder">↑</button>
+    <div class="recentwrap">
+      <button id="recentBtn" class="big" title="Recent folders" aria-label="Recent folders" aria-expanded="false">🕘</button>
+      <ul id="recent" class="recent hidden" role="menu"></ul>
+    </div>
+    <nav id="crumbs" class="tt-crumbs" aria-label="Where you are"></nav>
+    <input id="filter" type="search" placeholder="Filter" aria-label="Filter this folder">
+  </header>
+
+  <main id="list" class="tt-list" aria-label="Folder contents"></main>
+
+  <section id="sheet" class="sheet hidden" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <h2 id="sheetTitle"></h2>
+    <p id="sheetInfo" class="quiet"></p>
+    <div id="sheetActions" class="sheetactions"></div>
+    <button id="sheetCancel" class="big wide">Cancel</button>
+  </section>
+
+  <section id="outPanel" class="outpanel hidden" aria-label="Command output">
+    <div class="row">
+      <strong id="outTitle" class="mono"></strong>
+      <span id="outStatus" class="quiet"></span>
+      <span class="spacer"></span>
+      <button id="interrupt" disabled>Interrupt</button>
+      <button id="outClose" aria-label="Close output">✕</button>
+    </div>
+    <pre id="output" class="output"></pre>
+  </section>
+
+  <footer class="tt-dock">
+    <div id="chips" class="chips" aria-label="Quick commands"></div>
+    <form id="cmdForm" class="cmdform">
+      <label class="quiet prologtoggle"><input id="isProlog" type="checkbox"> Prolog</label>
+      <input id="cmd" type="text" class="mono" placeholder="Command, e.g. git status" aria-label="Command to run in this folder" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button class="primary big" aria-label="Run">Run</button>
+    </form>
+  </footer>
+</body>
+</html>
