@@ -84,3 +84,10 @@ test('reward texts are drafts to edit', () => {
   assert.match(c, /^Hi Sam,/);
   assert.match(c, /working on mnns and made progress 3 times this week/);
 });
+
+test('hotspots count only this week, so many old files do not outrank today', () => {
+  const now = Date.UTC(2026, 10, 26), D = 86400000;
+  const files = [...Array(2000)].map((_, i) => ({ path: `Dropbox/GitHub/oldrepo/f${i}.pl`, mtimeMs: now - 180 * D }));
+  for (let i = 0; i < 5; i++) files.push({ path: `Dropbox/GitHub/today/f${i}.pl`, mtimeMs: now - 3600e3 });
+  assert.deepEqual(hotspots(files, { now }).map((h) => h.name), ['today']);
+});
